@@ -9,15 +9,15 @@ public class AdivinaNumeroJuego {
         System.out.println("**  ADIVINA EL NÚMERO  **");
 
         System.out.println("Introduce el valor mínimo del rango: ");
-        int min = sc.nextInt();
+        int min = Gestor.intInput();
 
         System.out.println("Introduce el valor máximo del rango: ");
-        int max = sc.nextInt();
+        int max = Gestor.intInput();
 
         while (max <= min){
             System.out.println("El valor máximo debe de ser mayor que el mínimo. Inténtalo de nuevo");
             System.out.println("Introduce el valor máximo del rango: ");
-            max = sc.nextInt();
+            max = Gestor.intInput();
         }
 
         int numeroSecreto = (int) (Math.random() * (max - min +1)) + min;
@@ -27,7 +27,7 @@ public class AdivinaNumeroJuego {
 
         while (intentosRestantes > 0 && resultado == false){
             System.out.print("Intento (" + (6 - intentosRestantes) + "/5): ");
-            intentosJugador = sc.nextInt();
+            intentosJugador = Gestor.intInput();
             intentosRestantes--;
             if (intentosJugador < numeroSecreto){
                 System.out.println("El número es más alto");
