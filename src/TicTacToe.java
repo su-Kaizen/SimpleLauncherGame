@@ -31,7 +31,7 @@ public class TicTacToe {
              * 2 = bot gana
              * */
             int winner = 0;
-            int jugadas = 0;
+            int jugadas = 1;
             do {
 
                 // juega el usuario
@@ -48,13 +48,13 @@ public class TicTacToe {
                     }
                 }
                 while (!valido);
-                jugadas++;
+
                 // Comprobamos si hay ganador ya, solo se hace cuando hay mas 3 o mas jugadas (antes es imposible)
                 if (jugadas >= 3) {
                     winner = t.comprobarGanador("X");
                 }
 
-                if (winner == 0) {
+                if (winner == 0 && jugadas < 5) {
                     // Ponemos la validez de nuevo el false
                     valido = false;
 
@@ -75,7 +75,7 @@ public class TicTacToe {
                     }
                 }
 
-
+                jugadas++;
             }
             while (winner == 0);
             t.pintarTablero();
@@ -132,7 +132,7 @@ public class TicTacToe {
                 }
             }
             if (cont == 3) {
-                return ficha.equals("X") ? 1 : 0;
+                return ficha.equals("X") ? 1 : 2;
             }
 
             cont = 0;
@@ -148,12 +148,14 @@ public class TicTacToe {
                 }
             }
             if (cont == 3) {
-                return ficha.equals("X") ? 1 : 0;
+                return ficha.equals("X") ? 1 : 2;
             }
             cont = 0;
         }
 
         // Comprobacion en diagonal
+
+        // En un sentido
         for (int i = 0; i < tablero.length; i++) {
             if (tablero[i][i].equals(ficha)) {
                 cont++;
@@ -163,19 +165,24 @@ public class TicTacToe {
         }
 
         if (cont == 3) {
-            return ficha.equals("X") ? 1 : 0;
+            return ficha.equals("X") ? 1 : 2;
         }
 
+        cont = 0;
+
+        // En otroo
+        int x = 0;
         for (int i = 2; i >= 0; i--) {
-            if (tablero[i][i].equals(ficha)) {
+            if (tablero[i][x].equals(ficha)) {
                 cont++;
             } else {
                 break;
             }
+            x++;
         }
 
         if (cont == 3) {
-            return ficha.equals("X") ? 1 : 0;
+            return ficha.equals("X") ? 1 : 2;
         }
 
         return 0;
