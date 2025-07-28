@@ -17,6 +17,7 @@ public class Gestor {
             switch (opcion){
                 case 0 -> System.err.println("Saliendo del programa...");
                 case 1 -> AdivinaNumeroJuego.adivinar();
+                case 2 -> PiedraPapelTijeraJuego.juego();
                 default -> System.out.println("Introduce una opción válida");
             }
 
