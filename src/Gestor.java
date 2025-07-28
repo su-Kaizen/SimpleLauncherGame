@@ -11,14 +11,16 @@ public class Gestor {
             System.out.println("Elige un juego: ");
             System.out.println("1. Adivina el número");
             System.out.println("0. Salir del programa");
-            opcion = sc.nextInt();
-            sc.nextLine();
+            opcion = Gestor.intInput();
 
             switch (opcion){
                 case 0 -> System.err.println("Saliendo del programa...");
                 case 1 -> AdivinaNumeroJuego.adivinar();
                 default -> System.out.println("Introduce una opción válida");
             }
+
+            // Salto de linea para dejar un espacio
+            System.out.println();
         } while (opcion != 0);
     }
 
