@@ -10,6 +10,7 @@ public class Gestor {
             System.out.println(" -- SimpleLauncherGame --");
             System.out.println("Elige un juego: ");
             System.out.println("1. Adivina el número");
+            System.out.println("2. Piedra papel o tijera");
             System.out.println("0. Salir del programa");
             opcion = Gestor.intInput();
 
