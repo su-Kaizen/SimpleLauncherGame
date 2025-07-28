@@ -1,7 +1,7 @@
 import java.util.*;
 public class Gestor {
 
-    Scanner sc = new Scanner(System.in);
+    public static Scanner sc = new Scanner(System.in);
 
     public void menu(){
         int opcion = 0;
@@ -21,4 +21,14 @@ public class Gestor {
             }
         } while (opcion != 0);
     }
+
+    // Este metodo es el equivalente al nextLine, en un futuro si queremos modificarlo lo haremos por aqui
+    public static String stringInput(){
+        System.out.print("> "); // Imprimos esto para que el usuario sepa que tiene que escribir algo
+
+        // Hago el trim para que si el usuario escribe accidentalmente espacios al principo o al final, los ignore
+        return sc.nextLine().trim();
+    }
+
+
 }
