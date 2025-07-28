@@ -1,7 +1,7 @@
 public class PiedraPapelTijeraJuego {
 
     public static void juego(){
-        String[] opciones = {"piedra, papel, tijera"};
+        String[] opciones = {"piedra", "papel", "tijera"};
 
         System.out.println("**  PIEDRA PAPEL TIJERA  **");
 
