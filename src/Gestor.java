@@ -30,5 +30,13 @@ public class Gestor {
         return sc.nextLine().trim();
     }
 
+    // Lo mismo que el metodo de arriba pero para enteros
+    public static int intInput() {
+        System.out.print("> ");
+        int input = sc.nextInt();
+        sc.nextLine();
+
+        return input;
+    }
 
 }
