@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class TicTacToe {
     private String[][] tablero;
@@ -7,12 +8,12 @@ public class TicTacToe {
     public static final String RED = "\033[0;31m";
     public static final String END = "\033[0m";
 
-    public TicTacToe(){
-        tablero = new String[][]{{"1","2","3"},{"4","5","6"},{"7","8","9"}};
+    public TicTacToe() {
+        tablero = new String[][]{{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
         c = new int[2];
     }
 
-    public static void startGame(){
+    public static void startGame() {
         TicTacToe t = new TicTacToe();
         int posicion = 0;
         boolean valido = false;
@@ -22,46 +23,73 @@ public class TicTacToe {
         System.out.println("Empezar? [S/n]");
         String choice = Gestor.stringInput();
 
-        if(choice.equalsIgnoreCase("s")){
+        if (choice.equalsIgnoreCase("s")) {
             /*
-            * -1 = empate
-            * 0 = en juego
-            * 1 = jugador gana
-            * 2 = bot gana
-            * */
+             * -1 = empate
+             * 0 = en juego
+             * 1 = jugador gana
+             * 2 = bot gana
+             * */
             int winner = 0;
+            int jugadas = 0;
+            do {
 
-            do{
                 // juega el usuario
-                do{
+                do {
                     System.out.println("Elige posición: ");
                     posicion = Gestor.intInput();
 
                     valido = t.comprobarPosicion(posicion);
 
-                    if(valido){
+                    if (valido) {
                         t.ponerFicha("X");
-                    }
-                    else{
-                        System.out.print("\n Porfavor introduzca una coordenada valida y vacia...");
+                    } else {
+                        System.err.println("Porfavor introduzca una coordenada valida y vacia...");
                     }
                 }
-                while(!valido);
+                while (!valido);
+                jugadas++;
+                // Comprobamos si hay ganador ya, solo se hace cuando hay mas 3 o mas jugadas (antes es imposible)
+                if (jugadas >= 3) {
+                    winner = t.comprobarGanador("X");
+                }
 
-                t.pintarTablero();
+                if (winner == 0) {
+                    // Ponemos la validez de nuevo el false
+                    valido = false;
+
+                    // juega el bot
+                    do {
+                        valido = t.comprobarPosicion(t.posicionRandom());
+
+                        if (valido) {
+                            t.ponerFicha("0");
+                        }
+                    }
+                    while (!valido);
+
+                    t.pintarTablero();
+
+                    if (jugadas >= 3) {
+                        winner = t.comprobarGanador("0");
+                    }
+                }
+
 
             }
-            while(winner == 0);
+            while (winner == 0);
+            t.pintarTablero();
+            System.out.println(winner == 1 ? "Ganó el jugador" : "Ganó el bot");
         }
     }
 
 
-    public boolean comprobarPosicion(int pos){
-        pos = pos-1;
+    public boolean comprobarPosicion(int pos) {
+        pos = pos - 1;
         int x = 0;
 
         // Si la posicion esta fuera de esos rangos directamente es una posicion invalida
-        if(pos > 9 || pos < 0){
+        if (pos > 9 || pos < 0) {
             return false;
         }
 
@@ -72,34 +100,101 @@ public class TicTacToe {
         return !this.tablero[c[0]][c[1]].equals("X") && !this.tablero[c[0]][c[1]].equals("0");
     }
 
-    public void sacarPosicion(int pos){
+    public void sacarPosicion(int pos) {
         int x = 0;
-        while(pos-3 >= 0){
+        while (pos - 3 >= 0) {
             pos = pos - 3;
-            x ++;
+            x++;
         }
         c[0] = x;
         c[1] = pos;
     }
 
-
-    public void ponerFicha(String ficha){
+    public void ponerFicha(String ficha) {
         tablero[c[0]][c[1]] = ficha;
     }
 
-    public void pintarTablero(){
-        for(int i = 0; i<tablero.length; i++){
-            System.out.print("+---+---+---+\n|");
-            for(int j = 0; j<tablero[i].length; j++){
-                String value = tablero[i][j];
-                if(value.equals("X")){
-                    value = BLUE+value+END;
+    public int posicionRandom() {
+        Random r = new Random();
+        return r.nextInt(1, 10);
+    }
+
+    public int comprobarGanador(String ficha) {
+        int cont = 0;
+        int status = 0;
+        // Comprobacion horizontal
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (tablero[i][j].equalsIgnoreCase(ficha)) {
+                    cont++;
+                } else {
+                    break;
                 }
-                else if(value.equals("0")){
-                    value = RED+value+END;
+            }
+            if (cont == 3) {
+                return ficha.equals("X") ? 1 : 0;
+            }
+
+            cont = 0;
+        }
+
+        // Comprobacion vertical
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (tablero[j][i].equalsIgnoreCase(ficha)) {
+                    cont++;
+                } else {
+                    break;
+                }
+            }
+            if (cont == 3) {
+                return ficha.equals("X") ? 1 : 0;
+            }
+            cont = 0;
+        }
+
+        // Comprobacion en diagonal
+        for (int i = 0; i < tablero.length; i++) {
+            if (tablero[i][i].equals(ficha)) {
+                cont++;
+            } else {
+                break;
+            }
+        }
+
+        if (cont == 3) {
+            return ficha.equals("X") ? 1 : 0;
+        }
+
+        for (int i = 2; i >= 0; i--) {
+            if (tablero[i][i].equals(ficha)) {
+                cont++;
+            } else {
+                break;
+            }
+        }
+
+        if (cont == 3) {
+            return ficha.equals("X") ? 1 : 0;
+        }
+
+        return 0;
+    }
+
+
+    // este metodo se encarga unicamente de pintar el tablero
+    public void pintarTablero() {
+        for (int i = 0; i < tablero.length; i++) {
+            System.out.print("+---+---+---+\n|");
+            for (int j = 0; j < tablero[i].length; j++) {
+                String value = tablero[i][j];
+                if (value.equals("X")) {
+                    value = BLUE + value + END;
+                } else if (value.equals("0")) {
+                    value = RED + value + END;
                 }
 
-                System.out.print(" "+value+" |");
+                System.out.print(" " + value + " |");
             }
             System.out.println();
         }
