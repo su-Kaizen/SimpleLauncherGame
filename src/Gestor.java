@@ -11,6 +11,7 @@ public class Gestor {
             System.out.println("Elige un juego: ");
             System.out.println("1. Adivina el número");
             System.out.println("2. Piedra papel o tijera");
+            System.out.println("3. 3 en raya");
             System.out.println("0. Salir del programa");
             opcion = Gestor.intInput();
 
@@ -18,6 +19,7 @@ public class Gestor {
                 case 0 -> System.err.println("Saliendo del programa...");
                 case 1 -> AdivinaNumeroJuego.adivinar();
                 case 2 -> PiedraPapelTijeraJuego.juego();
+                case 3 -> TicTacToe.startGame();
                 default -> System.out.println("Introduce una opción válida");
             }
 
