@@ -51,10 +51,10 @@ public class TicTacToe {
 
                 // Comprobamos si hay ganador ya, solo se hace cuando hay mas 3 o mas jugadas (antes es imposible)
                 if (jugadas >= 3) {
-                    winner = t.comprobarGanador("X");
+                    winner = t.comprobarGanador("X", jugadas);
                 }
 
-                if (winner == 0 && jugadas < 5) {
+                if (winner == 0) {
                     // Ponemos la validez de nuevo el false
                     valido = false;
 
@@ -71,7 +71,7 @@ public class TicTacToe {
                     t.pintarTablero();
 
                     if (jugadas >= 3) {
-                        winner = t.comprobarGanador("0");
+                        winner = t.comprobarGanador("0", jugadas);
                     }
                 }
 
@@ -79,7 +79,15 @@ public class TicTacToe {
             }
             while (winner == 0);
             t.pintarTablero();
-            System.out.println(winner == 1 ? "Ganó el jugador" : "Ganó el bot");
+            if(winner == -1){
+                System.out.println("Empate.");
+            }
+            else if(winner == 1){
+                System.out.println("HAS GANADO!");
+            }
+            else{
+                System.err.println("Has perdido...");
+            }
         }
     }
 
@@ -119,9 +127,8 @@ public class TicTacToe {
         return r.nextInt(1, 10);
     }
 
-    public int comprobarGanador(String ficha) {
+    public int comprobarGanador(String ficha, int jugadas) {
         int cont = 0;
-        int status = 0;
         // Comprobacion horizontal
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[i].length; j++) {
@@ -185,7 +192,9 @@ public class TicTacToe {
             return ficha.equals("X") ? 1 : 2;
         }
 
-        return 0;
+
+
+        return jugadas == 5 ? -1 : 0;
     }
 
 
