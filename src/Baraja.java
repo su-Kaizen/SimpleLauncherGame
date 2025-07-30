@@ -21,8 +21,15 @@ public class Baraja {
     }
 
 
-    public void imprimirBaraja(){
+    public void remover(){
+        // Se remueve la baraja 2 veces
+        Collections.shuffle(b);
+        Collections.shuffle(b);
+    }
+
+    public void imprimir(){
         int cont = 0;
+        System.out.println();
         for(int i = 0; i<b.size(); i++){
             System.out.print(b.get(i)+" ");
             cont ++;
@@ -31,5 +38,12 @@ public class Baraja {
                 cont = 0;
             }
         }
+        System.out.println();
+    }
+
+    public Carta sacarRandom(){
+        Random r = new Random();
+        int randomIndex = r.nextInt(0,b.size());
+        return b.remove(randomIndex);
     }
 }
