@@ -25,8 +25,8 @@ public class Carta {
         switch (palo){
             case CORAZONES -> {color = "\033[0;31m"; simbolo = "♥";}
             case DIAMANTES -> {color = "\033[0;31m"; simbolo = "♦";}
-            case TREBOLES -> {simbolo = "♠";}
-            case PICAS -> {simbolo = "♣";}
+            case TREBOLES -> {simbolo = "♠"; color = "";}
+            case PICAS -> {simbolo = "♣"; color = "";}
         }
     }
 
