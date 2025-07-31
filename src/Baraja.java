@@ -46,4 +46,8 @@ public class Baraja {
         int randomIndex = r.nextInt(0,b.size());
         return b.remove(randomIndex);
     }
+
+    public Carta sacarPrimera(){
+        return !b.isEmpty() ? b.removeFirst() : null;
+    }
 }
