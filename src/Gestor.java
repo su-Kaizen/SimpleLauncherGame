@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 public class Gestor {
 
@@ -45,4 +46,30 @@ public class Gestor {
         return input;
     }
 
+
+    // Comando paa borrar la terminar (No funciona si lo ejecutas desde el IDE)
+    public static void clear(){
+        try {
+            if(System.getProperty("os.name").contains("Windows")){
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else{
+                new ProcessBuilder("clear").start();
+            }
+        }
+        catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void sleep(int s){
+        long l = s* 1000;
+        try{
+            Thread.sleep(l);
+        }
+        catch (InterruptedException ex){
+            ex.printStackTrace();
+        }
+
+    }
 }
