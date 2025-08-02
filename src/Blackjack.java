@@ -62,6 +62,7 @@ public class Blackjack {
             if(jugarDenuevo.equalsIgnoreCase("s")){
                b = new Blackjack();
             }
+            Gestor.clear();
         }
         while(jugarDenuevo.equalsIgnoreCase("s"));
     }
