@@ -14,6 +14,7 @@ public class Gestor {
             System.out.println("2. Piedra papel o tijera");
             System.out.println("3. 3 en raya");
             System.out.println("4. Blackjack (21)");
+            System.out.println(" 5. Dado");
             System.out.println("0. Salir del programa");
             opcion = Gestor.intInput();
 
@@ -23,6 +24,7 @@ public class Gestor {
                 case 2 -> PiedraPapelTijeraJuego.juego();
                 case 3 -> TicTacToe.startGame();
                 case 4 -> Blackjack.startGame();
+                case 5 -> JuegoDado.juegoDado();
                 default -> System.out.println("Introduce una opción válida");
             }
 
